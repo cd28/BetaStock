@@ -1,12 +1,12 @@
-import signal
-from math import ceil, floor
 from os import listdir
 
 import numpy as np
 import pandas as pd
 from bs4 import BeautifulSoup
+from math import ceil, floor
 
 import lib
+import signal
 import status
 
 

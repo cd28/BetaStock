@@ -1,10 +1,10 @@
 from datetime import datetime
 from json import load
-from math import floor
 from os import listdir, unlink
 from time import sleep
 
 from bs4 import BeautifulSoup
+from math import floor
 from selenium import webdriver
 
 site_url = {
