@@ -102,11 +102,13 @@ def analyze(market, stocks):
         loss = pattern_data[7]
 
         if confirmed == 0:
-            lib.print_time(f'{confirmed} confirmation, drop {ticker}')
-            stocks.drop(ticker, inplace=True)
-            continue
-
-        e = success / confirmed * profit - (confirmed - success) / confirmed * loss
+            # lib.print_time(f'{confirmed} confirmation, drop {ticker}')
+            # stocks.drop(ticker, inplace=True)
+            # continue
+            e = 0
+        else:
+            e = success / confirmed * profit - (confirmed - success) / confirmed * loss
+            
         e = lib.floor2(e)
 
         stop = stocks.loc[ticker, 'stop']
@@ -151,7 +153,7 @@ def analyze(market, stocks):
         stocks.loc[ticker, 'risk'] = risk
 
     if len(stocks) != 0:
-        stocks = stocks.sort_values(by=['e', 'rr'], ascending=False)
+        stocks = stocks.sort_values(by=['e', 'rr', 'star6', 'star12', 'star24', 'v'], ascending=False)
         lib.print_time(stocks.T)
 
     output_path = f'../result/{market}/' + lib.get_date() + '-stock.csv'
