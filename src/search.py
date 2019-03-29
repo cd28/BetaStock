@@ -25,8 +25,8 @@ def filter_stocks(market):
     star6_min = 4
     star12_min = 4
     star24_min = 4
-    volume_min = 100000
-    close_min = 1000
+    volume_min = 0
+    close_min = 0
     volume_close_min = volume_min * close_min
     stocks = stocks[
         (stocks['star6'] >= star6_min) &
@@ -64,6 +64,7 @@ def analyze(market, stocks):
 
         ticker = soup.find('span', {'id': 'MainContent_CompanyTicker'}).text
         ticker = ticker.split('.T')[0]
+
         name = soup.find('span', {'id': 'MainContent_Name'}).text
         if name != stocks.loc[ticker, 'name']:
             lib.print_time(f'wrong name: {name}, drop {ticker}')
@@ -124,8 +125,8 @@ def analyze(market, stocks):
 
         rr = lib.floor2(reward / risk)
 
-        e_min = 5
-        rr_min = 1.5
+        e_min = 0
+        rr_min = 0
         if e < e_min:
             lib.print_time(f'e: {e} < {e_min}, rr: {rr}, drop {ticker}')
             stocks.drop(ticker, inplace=True)
