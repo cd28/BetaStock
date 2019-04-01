@@ -18,7 +18,6 @@ def filter_stocks(market):
 
     sta_in_sig = sig.loc[sta.index, ['name', 'star6', 'star12', 'star24', 'v', 'c']]
     stocks = pd.concat([sta, sta_in_sig], axis=1)
-    stocks = stocks[['name', 'star6', 'star12', 'star24', 'v', 'c', 'buy', 'stop', 'sell']]
 
     stocks.index = stocks.index.astype(str)
 
@@ -64,12 +63,6 @@ def analyze(market, stocks):
 
         ticker = soup.find('span', {'id': 'MainContent_CompanyTicker'}).text
         ticker = ticker.split('.T')[0]
-
-        name = soup.find('span', {'id': 'MainContent_Name'}).text
-        if name != stocks.loc[ticker, 'name']:
-            lib.print_time(f'wrong name: {name}, drop {ticker}')
-            stocks.drop(ticker, inplace=True)
-            continue
 
         history_first_row = soup.find('tr', {'id': 'MainContent_PatternHistory_DXDataRow0'})
         history_first_row = history_first_row.find_all('td')
@@ -151,13 +144,16 @@ def analyze(market, stocks):
         stocks.loc[ticker, 'target'] = target
         stocks.loc[ticker, 'reward'] = reward
         stocks.loc[ticker, 'risk'] = risk
+        stocks = stocks[['name', 'star6', 'star12', 'star24', 'date', 'pattern',
+                         'total', 'confirmed', 'success', 'profit', 'loss', 'e',
+                         'v', 'target', 'buy', 'stop', 'sell', 'reward', 'risk', 'rr']]
 
     if len(stocks) != 0:
         stocks = stocks.sort_values(by=['e', 'rr', 'star6', 'star12', 'star24', 'v'], ascending=False)
-        lib.print_time(stocks.T)
+        lib.print_time(stocks)
 
     output_path = f'../result/{market}/' + lib.get_date() + '-stock.csv'
-    stocks.T.to_csv(output_path, index_label='ticker', encoding='utf-8')
+    stocks.to_csv(output_path, index_label='ticker', encoding='utf-8')
     lib.print_time(f'{len(stocks)} stock(s)!')
 
 
