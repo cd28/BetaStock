@@ -95,9 +95,6 @@ def analyze(market, stocks):
         loss = pattern_data[7]
 
         if confirmed == 0:
-            # lib.print_time(f'{confirmed} confirmation, drop {ticker}')
-            # stocks.drop(ticker, inplace=True)
-            # continue
             e = 0
         else:
             e = success / confirmed * profit - (confirmed - success) / confirmed * loss
@@ -144,9 +141,10 @@ def analyze(market, stocks):
         stocks.loc[ticker, 'target'] = target
         stocks.loc[ticker, 'reward'] = reward
         stocks.loc[ticker, 'risk'] = risk
-        stocks = stocks[['name', 'star6', 'star12', 'star24', 'date', 'pattern',
-                         'total', 'confirmed', 'success', 'profit', 'loss', 'e',
-                         'v', 'target', 'buy', 'stop', 'sell', 'reward', 'risk', 'rr']]
+       
+    stocks = stocks[['name', 'star6', 'star12', 'star24', 'date', 'pattern',
+                     'total', 'confirmed', 'success', 'profit', 'loss', 'e',
+                     'v', 'target', 'buy', 'stop', 'sell', 'reward', 'risk', 'rr']]
 
     if len(stocks) != 0:
         stocks = stocks.sort_values(by=['e', 'rr', 'star6', 'star12', 'star24', 'v'], ascending=False)

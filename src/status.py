@@ -61,15 +61,16 @@ def download(browser, market, wait):
         status_sort_by_ticker(browser, wait)
 
         page_no = 1
+        max_page_no = lib.get_max_page_no(browser, wait)
+        lib.print_time(f'{pattern} max page no is {max_page_no}')
         while True:
             try:
                 data = extract_status_page(browser)
                 lib.append_to_csv(output_path, output_name, data)
                 page_no += 1
                 lib.next_page(browser, page_no, wait)
-            except Exception as e:
-                lib.print_time(e)
-                if 'no such element' in str(e):
+            except Exception:
+                if page_no == max_page_no + 1:
                     lib.print_time('the end of the page')
                     break
                 else:
