@@ -81,8 +81,14 @@ def main():
 
     lib.print_time(f'download {market} signals')
     browser = lib.bulls_login(market, wait)
-    download(browser, market, wait)
-    lib.bulls_logout(browser, market, wait)
+
+    if lib.is_today(browser):
+        download(browser, market, wait)
+        lib.bulls_logout(browser, market, wait)
+    else:
+        lib.print_time('old data')
+        lib.bulls_logout(browser, market, wait)
+        raise Exception
 
 
 if __name__ == '__main__':

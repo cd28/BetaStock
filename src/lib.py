@@ -76,6 +76,21 @@ def get_stock_page_source(browser, market, ticker, wait):
     to(browser, url, wait)
     return browser.page_source
 
+def get_max_page_no(browser, wait):
+    sleep(wait)
+    source = browser.page_source
+    soup = BeautifulSoup(source, 'lxml')
+    return int(soup.findAll('a', {'class': 'dxp-num'})[-1].text)
+
+
+def is_today(browser):
+    source = browser.page_source
+    soup = BeautifulSoup(source, 'lxml')
+    date = soup.find('div', {'id': 'Div1'}).text.strip()
+    today = datetime.now().strftime('%Y.%m.%d')
+    print_time(f'today is {today}, website date is {date}')
+    return date == today
+
 
 ######################################################
 def monex_login(wait):
