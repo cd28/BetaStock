@@ -162,6 +162,9 @@ def main():
     browser = lib.bulls_login(market, wait)
     signal.download(browser, market, wait)
     status.download(browser, market, wait)
+    lib.bulls_logout(browser, market, wait)
+
+    browser = lib.bulls_login(market, wait)
     stocks = filter_stocks(market)
     download(browser, market, stocks.index, wait)
     lib.bulls_logout(browser, market, wait)
