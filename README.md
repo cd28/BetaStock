@@ -12,3 +12,15 @@ japanesebulls.comは非常に古いWebサイトなので、Seleniumを使用し�
 出力例：
 
 https://github.com/cd28/BetaStock/blob/master/result/tokyo/2019-04-05-stock.csv 
+----
+When I was studying candlestick charts online, I found a good website that stats the past performance of daily candlestick charts
+but I want to do more analysis locally.
+BetaStock is a program that downloads and analyzes daily stock data from japanesebulls.com. japanesebulls.com already has a
+different candlestick past return for each stock, but there are too many stocks to buy and sell the next day, so the top ones must
+be extracted.
+There is no calculation of historical profit factor (total profit / total loss) for each candlestick pattern. This program crawls all
+stock data on the Tokyo Stock Exchange daily and locks out tradeable patterns. A program that extracts four or more stars
+(meaning better for trading on candlestick charts) using candlestick charts for 6, 12, and 24 months. You can calculate the profit
+factor and use it as a recommended stock to buy and sell the next day.
+japanesebulls.com is a very old website, so I used Selenium and BeautifulSoup to log in and crawl the data.
+Example output: https://github.com/cd28/BetaStock/blob/master/result/tokyo/2019-04-05-stock.csv
